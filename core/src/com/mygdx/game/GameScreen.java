@@ -13,11 +13,10 @@ public class GameScreen extends ScreenAdapter{
 	private SpriteBatch batch;
 	private FirstMapRenderer firstMapRenderer;
 	private FirstMap firstMap;
-	int x = 40;
-	int y = 520;
+	private Hero hero;
+	int x = 160;
+	int y = 440;
 	int i = 0;
-	int tempX = x;
-	int tempY = y;
 	boolean inputKeyR;
 	boolean inputKeyL;
 	boolean inputKeyU;
@@ -27,6 +26,7 @@ public class GameScreen extends ScreenAdapter{
         this.myGame = myGame;
         this.batch = myGame.batch;
         this.firstMap = new FirstMap();
+        this.hero = new Hero(x,y);
         this.firstMapRenderer = new FirstMapRenderer(myGame.batch,firstMap);
         HeroImg = new Texture("pacman.png");
     }
@@ -45,19 +45,22 @@ public class GameScreen extends ScreenAdapter{
         inputKeyU = false;
         inputKeyD = false;
         
-        if(Gdx.input.isKeyPressed(Keys.RIGHT) && x < tempX + 40) {
-            inputKeyR = true;	
-        	x += 20;
+        if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+            System.out.println("KEY PRESSED");
+            x += 40;
         }
-        else if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-            inputKeyL = true;	
+        else if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+            System.out.println("KEY PRESSED");
+            x -= 40;
         }
-        else if(Gdx.input.isKeyPressed(Keys.UP)) {
-            inputKeyU = true;	
+        else if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+            System.out.println("KEY PRESSED");
+            y += 40;
         }
-        else if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-            inputKeyD = true;	
+        else if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+            System.out.println("KEY PRESSED");
+            y -= 40;
         }
-        System.out.println(x);
+        //System.out.println(x);
     }
 }

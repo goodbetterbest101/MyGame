@@ -15,15 +15,11 @@ public class MyGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		setScreen(new GameScreen(this));
-		//heroImg = new Texture("pacman.png");
 	}
 
 	@Override
 	public void render () {
 		super.render();
-		//batch.begin();
-		//batch.draw(heroImg,100,100);
-		//batch.end();
 	}
 	
 	@Override
