@@ -9,6 +9,7 @@ public class FirstMapRenderer {
     private Texture wallImage;
     private Texture floorImage;
     private Texture oldStateImage;
+    private Texture choiceImage;
  
     public FirstMapRenderer(SpriteBatch batch, FirstMap firstMap) { //constructor
         this.firstMap = firstMap;
@@ -16,6 +17,7 @@ public class FirstMapRenderer {
         floorImage = new Texture("floor.png");
         wallImage = new Texture("rockfloor.png");
         oldStateImage = new Texture("wall.png");
+        choiceImage = new Texture("wallrock.png");
     }
  
     public void render() {
@@ -28,10 +30,12 @@ public class FirstMapRenderer {
  
                 if(firstMap.hasWallAt(r, c)) {
                     batch.draw(wallImage, x, y);
-                } else if(firstMap.hasDotAt(r, c)) {
-                    batch.draw(floorImage, x, y);
                 } else if(firstMap.hasOldState(r, c)) {
                     batch.draw(oldStateImage, x, y);
+                } else if(firstMap.hasChoiceRightAt(r, c) || firstMap.hasChoiceUpAt(r, c) || firstMap.hasChoiceDownAt(r, c) ||firstMap.hasChoiceLeftAt(r, c)) {
+                    batch.draw(choiceImage, x, y);
+                } else if(firstMap.hasDotAt(r, c)) {
+                    batch.draw(floorImage, x, y);
                 }
             }
         }

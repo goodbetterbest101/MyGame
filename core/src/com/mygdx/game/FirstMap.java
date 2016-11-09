@@ -58,9 +58,17 @@ public class FirstMap {
         return MAP2[r].charAt(c) == '*';
     }
     
+    public boolean hasChoiceRightAt(int r,int c) {
+    	boolean right = false;
+    	if(stateR == r && stateC + 1 == c) {    //RIGHT
+    		right = true;
+    	}
+    	return right;
+    }
+    
     public boolean hasChoiceUpAt(int r,int c) {
     	boolean up = false;
-    	if(stateR == r && stateC + 1 == c) { 
+    	if(stateR - 1 == r && stateC == c) { 		//UP
     		up = true;
     	}
     	return up;
@@ -68,25 +76,33 @@ public class FirstMap {
     
     public boolean hasChoiceDownAt(int r,int c) {
     	boolean down = false;
-    	if(stateR == r && stateC + 1 == c) { 
+    	if(stateR + 1 == r && stateC == c) { 		//Down
     		down = true;
     	}
     	return down;
     }
     
+    public boolean hasChoiceLeftAt(int r,int c) {
+    	boolean left = false;
+    	if(stateR == r && stateC - 1 == c) { 		//Left
+    		left = true;
+    	}
+    	return left;
+    }
+    
     public boolean canMoveDirection(int r ,int c) { 
     	boolean move;
     	move = true;
-    	if(stateR == r && stateC + 1 == c) {
+    	if(stateR == r && stateC + 1 == c) { 	// RIGHT
     		move = true;
     	}
-    	else if(stateR - 1 == r && stateC == c) {
+    	else if(stateR - 1 == r && stateC == c) { 		//UP
     		move = true;
     	}
-    	else if(stateR + 1 == r && stateC == c) {
+    	else if(stateR + 1 == r && stateC == c) {		//DOWN
     		move = true;
     	}
-    	else if(stateR == r && stateC - 1 == c) {
+    	else if(stateR == r && stateC - 1 == c) {		//LEFT
     		move = true;
     	}
     	else if(stateR == r && stateC == c) {
