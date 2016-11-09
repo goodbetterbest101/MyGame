@@ -8,12 +8,14 @@ public class FirstMapRenderer {
     private SpriteBatch batch;
     private Texture wallImage;
     private Texture floorImage;
+    private Texture oldStateImage;
  
     public FirstMapRenderer(SpriteBatch batch, FirstMap firstMap) { //constructor
         this.firstMap = firstMap;
         this.batch = batch;
         floorImage = new Texture("floor.png");
         wallImage = new Texture("rockfloor.png");
+        oldStateImage = new Texture("wall.png");
     }
  
     public void render() {
@@ -28,6 +30,8 @@ public class FirstMapRenderer {
                     batch.draw(wallImage, x, y);
                 } else if(firstMap.hasDotAt(r, c)) {
                     batch.draw(floorImage, x, y);
+                } else if(firstMap.hasOldState(r, c)) {
+                    batch.draw(oldStateImage, x, y);
                 }
             }
         }
