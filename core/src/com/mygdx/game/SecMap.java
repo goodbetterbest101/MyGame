@@ -28,6 +28,43 @@ public class SecMap {
         width = MAP[0].length();
     }
     
+    public void randomBomb() {
+    	Random randomBomb = new Random();
+    	for (int i = 0;i < 5; i++){
+    		if(i == 0) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP[3].setCharAt(positionBomb,'b');
+    		} else if(i == 1) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP[4].setCharAt(positionBomb,'b');
+    		} else if(i == 2) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP[5].setCharAt(positionBomb,'b');
+    		} else if(i == 3) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP[6].setCharAt(positionBomb,'b');
+    		} else if(i == 4) {
+    			positionBomb = randomBomb.nextInt(7)+1;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP[7].setCharAt(positionBomb,'b');
+    		}
+    	}
+    }
+    
     public int getHeight() {
         return height;
     }
@@ -115,4 +152,7 @@ public class SecMap {
     	MAP[stateR].setCharAt(stateC,'*');
     }
     
+    public boolean checkOut(int c ,int r) {
+    	return MAP[r].charAt(c) == 'O';
+    }
 }

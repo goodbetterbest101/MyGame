@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter{
         HeroImg = new Texture("pacman.png");
     }
     
-    public void update(){
+    public void updateFirst(){
     	
     	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
             System.out.println("KEY PRESSED ");
@@ -62,15 +62,40 @@ public class GameScreen extends ScreenAdapter{
         }
     }
     
+    public void updateSec(){
+    	
+    	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
+            System.out.println("KEY PRESSED ");
+            if(secMap.conMove((x+40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x+40)/40))
+            	x += 40;
+        } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
+            System.out.println("KEY PRESSED ");
+            if(secMap.conMove((x-40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x-40)/40))
+            	x -= 40;
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(secMap.conMove((x)/40, (520-y)/40) && secMap.canMoveDirection((520-y)/40, (x)/40))
+            	y += 40;
+        } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(secMap.conMove((x)/40, (600-y)/40) && secMap.canMoveDirection((600-y)/40, (x)/40))
+            	y -= 40;
+        } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+       		secMap.changeOldState();
+        	state_x = x;
+        	state_y = y;
+        }
+    }
     @Override
     public void render(float delta) {
-    	firstMap.stateC = state_x/40;
-        firstMap.stateR = (560-state_y)/40;
+    	
     	state_c = x/40;
     	state_r = (560-y)/40;
     	Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(map == 0){
+			firstMap.stateC = state_x/40;
+	        firstMap.stateR = (560-state_y)/40;
 			firstMapRenderer.render();
 			if (createBomb == false) {
 				firstMap.randomBomb();
@@ -83,21 +108,26 @@ public class GameScreen extends ScreenAdapter{
 				state_y = 440;
 				x = 160;
 				y = 440;
+				
 			}
+			updateFirst();
 		}
 		if(map == 1){
+			secMap.stateC = state_x/40;
+	        secMap.stateR = (560-state_y)/40;
 			secMapRenderer.render();
 			System.out.println(x + " " + y + " " + state_x + " " + state_y);
 			if (createBomb == false) {
-				firstMap.randomBomb();
+				secMap.randomBomb();
 				createBomb = true; 
 			}
-			if (firstMap.checkOut(state_x/40, (560-state_y)/40)){
+			if (secMap.checkOut(state_x/40, (560-state_y)/40)){
 				map++;
 				createBomb = false;
 				state_x = 200;
 				state_y = 440;
 			}
+			updateSec();
 		}
         batch.begin();
         batch.draw(HeroImg, x, y);
@@ -105,7 +135,6 @@ public class GameScreen extends ScreenAdapter{
        
         System.out.println(firstMap.stateC + "   " + firstMap.stateR);
          
-        update();
         //System.out.println(x);
     }
 }
