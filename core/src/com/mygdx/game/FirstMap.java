@@ -100,7 +100,7 @@ public class FirstMap {
     }
     
     public boolean hasBombAt(int r, int c) {
-        return MAP2[r].charAt(c) == 'b';
+        return MAP2[r].charAt(c) == 'B';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -172,7 +172,9 @@ public class FirstMap {
     }
     
     public void changeOldState() {
-    	if(MAP2[stateR].charAt(stateC) != 'b' ){
+    	if(MAP2[stateR].charAt(stateC) == 'b' ){
+    		MAP2[stateR].setCharAt(stateC,'B');
+    	}else {
     		MAP2[stateR].setCharAt(stateC,'*');
     	}
     }

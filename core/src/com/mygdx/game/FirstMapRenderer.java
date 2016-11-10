@@ -36,6 +36,8 @@ public class FirstMapRenderer {
                     batch.draw(wallImage, x, y);
                 } else if(firstMap.hasDoorAt(r, c)) {
                 	batch.draw(doorImage, x, y);
+                } else if(firstMap.hasBombAt(r, c)) {
+                    batch.draw(bombImage, x, y);
                 } else if(firstMap.hasOldState(r, c)) {
                     batch.draw(oldStateImage, x, y);
                 } else if(firstMap.hasChoiceRightAt(r, c) || firstMap.hasChoiceUpAt(r, c) || firstMap.hasChoiceDownAt(r, c) ||firstMap.hasChoiceLeftAt(r, c)) {

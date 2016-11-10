@@ -77,12 +77,16 @@ public class SecMap {
         return (MAP[r].charAt(c) == 'S' || MAP[r].charAt(c) == 'O');
     }
     
+    public boolean hasBombAt(int r, int c) {
+        return MAP[r].charAt(c) == 'B';
+    }
+    
     public boolean hasWallAt(int r, int c) {
         return MAP[r].charAt(c) == '#';
     }
  
     public boolean hasDotAt(int r, int c) {
-        return MAP[r].charAt(c) == '.';
+        return MAP[r].charAt(c) == '.' || MAP[r].charAt(c) == 'b';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -154,7 +158,15 @@ public class SecMap {
     }
     
     public void changeOldState() {
-    	MAP[stateR].setCharAt(stateC,'*');
+    	if(MAP[stateR].charAt(stateC) == 'b' ){
+    		MAP[stateR].setCharAt(stateC,'B');
+    	}else {
+    		MAP[stateR].setCharAt(stateC,'*');
+    	}
+    }
+    
+    public boolean touchBomb(int c ,int r) {
+    	return MAP[r].charAt(c) == 'b';
     }
     
     public boolean checkOut(int c ,int r) {

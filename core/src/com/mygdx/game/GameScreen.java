@@ -150,7 +150,10 @@ public class GameScreen extends ScreenAdapter{
 				state_x = 200;
 				state_y = 440;
 			}
-			
+			if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+				hero.life -= 1;
+				touch = true;
+			}
 			updateSec();
 		}
         batch.begin();
