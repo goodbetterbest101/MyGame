@@ -10,14 +10,18 @@ public class FirstMapRenderer {
     private Texture floorImage;
     private Texture oldStateImage;
     private Texture choiceImage;
+    private Texture doorImage;
+    private Texture bombImage;
  
     public FirstMapRenderer(SpriteBatch batch, FirstMap firstMap) { //constructor
         this.firstMap = firstMap;
         this.batch = batch;
-        floorImage = new Texture("floor.png");
-        wallImage = new Texture("rockfloor.png");
-        oldStateImage = new Texture("wall.png");
-        choiceImage = new Texture("wallrock.png");
+        floorImage = new Texture("stone2.png");
+        wallImage = new Texture("wall2.png");
+        oldStateImage = new Texture("after copy.png");
+        choiceImage = new Texture("choice.png");
+        doorImage = new Texture("door.png");
+        bombImage = new Texture("bomb.png");
     }
  
     public void render() {
@@ -30,13 +34,15 @@ public class FirstMapRenderer {
  
                 if(firstMap.hasWallAt(r, c)) {
                     batch.draw(wallImage, x, y);
+                } else if(firstMap.hasDoorAt(r, c)) {
+                	batch.draw(doorImage, x, y);
                 } else if(firstMap.hasOldState(r, c)) {
                     batch.draw(oldStateImage, x, y);
                 } else if(firstMap.hasChoiceRightAt(r, c) || firstMap.hasChoiceUpAt(r, c) || firstMap.hasChoiceDownAt(r, c) ||firstMap.hasChoiceLeftAt(r, c)) {
                     batch.draw(choiceImage, x, y);
                 } else if(firstMap.hasDotAt(r, c)) {
                     batch.draw(floorImage, x, y);
-                }
+                } 
             }
         }
         batch.end();

@@ -72,6 +72,11 @@ public class SecMap {
     public int getWidth() {
         return width;
     }
+    
+    public boolean hasDoorAt(int r, int c) {
+        return (MAP[r].charAt(c) == 'S' || MAP[r].charAt(c) == 'O');
+    }
+    
     public boolean hasWallAt(int r, int c) {
         return MAP[r].charAt(c) == '#';
     }

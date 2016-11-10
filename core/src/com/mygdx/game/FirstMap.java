@@ -69,9 +69,9 @@ public class FirstMap {
     			}
     			MAP2[6].setCharAt(positionBomb,'b');
     		} else if(i == 4) {
-    			positionBomb = randomBomb.nextInt(7)+1;
+    			positionBomb = randomBomb.nextInt(5);
     			if(positionBomb < 6) {
-    				positionBomb += 4;
+    				positionBomb += 3;
     			}
     			MAP2[7].setCharAt(positionBomb,'b');
     		}
@@ -85,12 +85,22 @@ public class FirstMap {
     public int getWidth() {
         return width;
     }
+    
+    public boolean hasDoorAt(int r, int c) {
+        return (MAP2[r].charAt(c) == 'S' || MAP2[r].charAt(c) == 'O');
+    }
+    
+    
     public boolean hasWallAt(int r, int c) {
         return MAP2[r].charAt(c) == '#';
     }
  
     public boolean hasDotAt(int r, int c) {
-        return MAP2[r].charAt(c) == '.';
+        return MAP2[r].charAt(c) == '.' || MAP2[r].charAt(c) == 'b';
+    }
+    
+    public boolean hasBombAt(int r, int c) {
+        return MAP2[r].charAt(c) == 'b';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -162,10 +172,17 @@ public class FirstMap {
     }
     
     public void changeOldState() {
-    	MAP2[stateR].setCharAt(stateC,'*');
+    	if(MAP2[stateR].charAt(stateC) != 'b' ){
+    		MAP2[stateR].setCharAt(stateC,'*');
+    	}
+    }
+    
+    public boolean touchBomb(int c ,int r) {
+    	return MAP2[r].charAt(c) == 'b';
     }
     
     public boolean checkOut(int c ,int r) {
     	return MAP2[r].charAt(c) == 'O';
     }
-}
+    
+}    

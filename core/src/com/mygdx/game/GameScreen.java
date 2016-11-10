@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen extends ScreenAdapter{
@@ -16,14 +18,19 @@ public class GameScreen extends ScreenAdapter{
 	private SecMapRenderer secMapRenderer;
 	private SecMap secMap;
 	private Hero hero;
+	private BitmapFont font;
+	private OrthographicCamera camera;
+	
+	
 	int x = 160;
 	int y = 440;
 	int state_r = 0;
 	int state_c = 0;
 	int state_x = 200;
-	int state_y = 440;
+	int state_y = 440; 
 	boolean moveArea = true;
 	boolean createBomb = false;
+	boolean touch = false;
 	int map = 0;
 	
     public GameScreen(MyGame myGame) {
@@ -34,8 +41,19 @@ public class GameScreen extends ScreenAdapter{
         this.firstMapRenderer = new FirstMapRenderer(myGame.batch,firstMap);
         this.secMap = new SecMap();
         this.secMapRenderer = new SecMapRenderer(myGame.batch,secMap);
-        HeroImg = new Texture("pacman.png");
+        font = new BitmapFont();
+        camera = new OrthographicCamera();
+        HeroImg = new Texture("hero.png");
     }
+    
+    public void resize(int width, int height) {
+        //we will use lower-left as our origin (0, 0)
+        camera.setToOrtho(false, width, height);
+
+        //we need to update our batch with the new camera matrices
+        batch.setProjectionMatrix(camera.combined);
+    }
+
     
     public void updateFirst(){
     	
@@ -59,6 +77,7 @@ public class GameScreen extends ScreenAdapter{
        		firstMap.changeOldState();
         	state_x = x;
         	state_y = y;
+        	touch = false;
         }
     }
     
@@ -110,6 +129,10 @@ public class GameScreen extends ScreenAdapter{
 				y = 440;
 				
 			}
+			if(firstMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+				hero.life -= 1;
+				touch = true;
+			}
 			updateFirst();
 		}
 		if(map == 1){
@@ -127,10 +150,13 @@ public class GameScreen extends ScreenAdapter{
 				state_x = 200;
 				state_y = 440;
 			}
+			
 			updateSec();
 		}
         batch.begin();
         batch.draw(HeroImg, x, y);
+        font.draw(batch, "LIFE : " + hero.life, 25, 140 );
+        font.draw(batch, "STATUS : " , 200, 140 );
         batch.end();
        
         System.out.println(firstMap.stateC + "   " + firstMap.stateR);

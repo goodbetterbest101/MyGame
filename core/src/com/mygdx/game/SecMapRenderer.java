@@ -10,14 +10,16 @@ public class SecMapRenderer {
     private Texture floorImage;
     private Texture oldStateImage;
     private Texture choiceImage;
+    private Texture doorImage;
  
     public SecMapRenderer(SpriteBatch batch, SecMap secMap) { //constructor
         this.secMap = secMap;
         this.batch = batch;
-        floorImage = new Texture("floor.png");
-        wallImage = new Texture("rockfloor.png");
-        oldStateImage = new Texture("wall.png");
-        choiceImage = new Texture("wallrock.png");
+        floorImage = new Texture("stone2.png");
+        wallImage = new Texture("wall2.png");
+        oldStateImage = new Texture("after copy.png");
+        choiceImage = new Texture("choice.png");
+        doorImage = new Texture("door.png");
     }
  
     public void render() {
@@ -30,6 +32,8 @@ public class SecMapRenderer {
  
                 if(secMap.hasWallAt(r, c)) {
                     batch.draw(wallImage, x, y);
+                } else if(secMap.hasDoorAt(r, c)) {
+                	batch.draw(doorImage, x, y);
                 } else if(secMap.hasOldState(r, c)) {
                     batch.draw(oldStateImage, x, y);
                 } else if(secMap.hasChoiceRightAt(r, c) || secMap.hasChoiceUpAt(r, c) || secMap.hasChoiceDownAt(r, c) || secMap.hasChoiceLeftAt(r, c)) {
