@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.Random;
+
 public class FirstMap {
 	private String[] MAP = new String [] {
 			"###############",
@@ -20,7 +22,7 @@ public class FirstMap {
     private int width;
     int stateC = 0;
     int stateR = 0;
- 
+    int positionBomb;
     public FirstMap() {
         height = MAP.length;
         width = MAP[0].length();
@@ -38,7 +40,44 @@ public class FirstMap {
         MAP2[9] = new StringBuilder("###############");
         MAP2[10] = new StringBuilder("###############");
     }
- 
+    
+    public void randomBomb() {
+    	Random randomBomb = new Random();
+    	for (int i = 0;i < 5; i++){
+    		if(i == 0) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP2[3].setCharAt(positionBomb,'b');
+    		} else if(i == 1) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP2[4].setCharAt(positionBomb,'b');
+    		} else if(i == 2) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP2[5].setCharAt(positionBomb,'b');
+    		} else if(i == 3) {
+    			positionBomb = randomBomb.nextInt(8)+2;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP2[6].setCharAt(positionBomb,'b');
+    		} else if(i == 4) {
+    			positionBomb = randomBomb.nextInt(7)+1;
+    			if(positionBomb < 6) {
+    				positionBomb += 4;
+    			}
+    			MAP2[7].setCharAt(positionBomb,'b');
+    		}
+    	}
+    }
+    
     public int getHeight() {
         return height;
     }
@@ -126,4 +165,7 @@ public class FirstMap {
     	MAP2[stateR].setCharAt(stateC,'*');
     }
     
+    public boolean checkOut(int c ,int r) {
+    	return MAP2[r].charAt(c) == 'O';
+    }
 }
