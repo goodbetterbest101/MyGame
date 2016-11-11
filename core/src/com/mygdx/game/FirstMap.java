@@ -2,21 +2,7 @@ package com.mygdx.game;
 
 import java.util.Random;
 
-public class FirstMap {
-	private String[] MAP = new String [] {
-			"###############",
-			"###############",
-			"###############",
-			"####S.....#####",
-			"#####.....#####",
-			"#####.....#####",
-			"#####.....#####",
-			"#####.....O####",
-			"###############",
-			"###############",
-			"###############",
-    };
-	
+public class FirstMap{
 	private StringBuilder MAP2[]; 
 	private int height;
     private int width;
@@ -24,9 +10,6 @@ public class FirstMap {
     int stateR = 0;
     int positionBomb;
     public FirstMap() {
-        height = MAP.length;
-        width = MAP[0].length();
-        
         MAP2 = new StringBuilder[11];
         MAP2[0] = new StringBuilder("###############");
         MAP2[1] = new StringBuilder("###############");
@@ -39,6 +22,8 @@ public class FirstMap {
         MAP2[8] = new StringBuilder("###############");
         MAP2[9] = new StringBuilder("###############");
         MAP2[10] = new StringBuilder("###############");
+        height = MAP2.length;
+        width = MAP2[0].length();
     }
     
     public void randomBomb() {
@@ -69,9 +54,9 @@ public class FirstMap {
     			}
     			MAP2[6].setCharAt(positionBomb,'b');
     		} else if(i == 4) {
-    			positionBomb = randomBomb.nextInt(5);
+    			positionBomb = randomBomb.nextInt(4)+1;
     			if(positionBomb < 6) {
-    				positionBomb += 3;
+    				positionBomb += 4;
     			}
     			MAP2[7].setCharAt(positionBomb,'b');
     		}
@@ -89,7 +74,6 @@ public class FirstMap {
     public boolean hasDoorAt(int r, int c) {
         return (MAP2[r].charAt(c) == 'S' || MAP2[r].charAt(c) == 'O');
     }
-    
     
     public boolean hasWallAt(int r, int c) {
         return MAP2[r].charAt(c) == '#';
@@ -162,6 +146,7 @@ public class FirstMap {
     	}
     	return move;
     }
+    
     public boolean conMove(int c, int r){
     	boolean move;
     	move = true;

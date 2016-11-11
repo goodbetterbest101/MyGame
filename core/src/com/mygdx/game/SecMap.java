@@ -23,14 +23,13 @@ public class SecMap {
         MAP[8] = new StringBuilder("#####......O###");
         MAP[9] = new StringBuilder("###############");
         MAP[10] = new StringBuilder("###############");
-        
         height = MAP.length;
         width = MAP[0].length();
     }
     
     public void randomBomb() {
     	Random randomBomb = new Random();
-    	for (int i = 0;i < 5; i++){
+    	for (int i = 0; i < 5; i++){
     		if(i == 0) {
     			positionBomb = randomBomb.nextInt(8)+2;
     			if(positionBomb < 6) {
@@ -148,6 +147,7 @@ public class SecMap {
     	}
     	return move;
     }
+    
     public boolean conMove(int c, int r){
     	boolean move;
     	move = true;
@@ -160,7 +160,7 @@ public class SecMap {
     public void changeOldState() {
     	if(MAP[stateR].charAt(stateC) == 'b' ){
     		MAP[stateR].setCharAt(stateC,'B');
-    	}else {
+    	} else {
     		MAP[stateR].setCharAt(stateC,'*');
     	}
     }

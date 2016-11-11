@@ -26,7 +26,6 @@ public class FirstMapRenderer {
  
     public void render() {
     	batch.begin();
-    	//System.out.println(""+ firstMap.getHeight());
         for(int r = 0; r < firstMap.getHeight(); r++) {
             for(int c = 0; c < firstMap.getWidth(); c++) {
                 int x = c * 40;
