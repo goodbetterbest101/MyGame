@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,8 @@ public class GameScreen extends ScreenAdapter{
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private Texture gameOverImage;
+	private Sound bomb;
+	private Sound foot;
 	
 	int x = 160;
 	int y = 440;
@@ -46,6 +49,8 @@ public class GameScreen extends ScreenAdapter{
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
         gameOverImage = new Texture("gameover.png");
+        bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
+//        foot = Gdx.audio.newSound(Gdx.files.internal("footstep.mp3"));
     }
     
     public void resize(int width, int height) {
@@ -61,6 +66,7 @@ public class GameScreen extends ScreenAdapter{
             System.out.println("KEY PRESSED ");
             if(firstMap.conMove((x+40)/40, (560-y)/40) && firstMap.canMoveDirection((560-y)/40, (x+40)/40)) {
             	x += 40;
+            	
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
@@ -140,17 +146,24 @@ public class GameScreen extends ScreenAdapter{
 		firstMapRenderer.render();
 		if (createBomb == false) {
 			firstMap.randomBomb();
+			//firstMapRenderer.hintBomb();
 			createBomb = true; 
-		} if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
+			//System.out.println(Gdx.graphics.getDeltaTime());     
+		} 
+		
+		//firstMapRenderer.hintBomb();
+		
+		
+		if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 200;
 			state_y = 440;
 			x = 160;
 			y = 440;
-			
 		} if(firstMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
 			hero.life -= 1;
+			bomb.play(0.6f);
 			touch = true;
 		} if(hero.life == 0) {
 			batch.begin();
@@ -166,7 +179,7 @@ public class GameScreen extends ScreenAdapter{
     	secMap.stateC = state_x/40;
         secMap.stateR = (560-state_y)/40;
 		secMapRenderer.render();
-		System.out.println(x + " " + y + " " + state_x + " " + state_y);
+		//System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (createBomb == false) {
 			secMap.randomBomb();
 			createBomb = true; 
@@ -177,6 +190,7 @@ public class GameScreen extends ScreenAdapter{
 			state_y = 440;
 		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
 			hero.life -= 1;
+			bomb.play(0.6f);
 			touch = true;
 		} if(hero.life == 0) {
 			batch.begin();
@@ -187,4 +201,5 @@ public class GameScreen extends ScreenAdapter{
 			updateSec();
 		}
     }
+    
 }

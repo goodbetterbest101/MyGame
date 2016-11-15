@@ -1,17 +1,21 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FirstMapRenderer {
 	private FirstMap firstMap;
     private SpriteBatch batch;
+    private GameScreen gameScreen;
     private Texture wallImage;
     private Texture floorImage;
     private Texture oldStateImage;
     private Texture choiceImage;
     private Texture doorImage;
     private Texture bombImage;
+    int time = 0;
+    int round = 0;
  
     public FirstMapRenderer(SpriteBatch batch, FirstMap firstMap) { //constructor
         this.firstMap = firstMap;
@@ -46,6 +50,29 @@ public class FirstMapRenderer {
                 } 
             }
         }
+        batch.end();
+    }
+    
+    public void hintBomb(){
+    	batch.begin();
+    	while(time < 2) {
+	        for(int r = 0; r < firstMap.getHeight(); r++) {
+	            for(int c = 0; c < firstMap.getWidth(); c++) {
+	                int x = c * 40;
+	                int y = MyGame.HEIGHT - (r * 40) - 40;
+	                
+	                if(firstMap.hasBombAt(r, c)) {
+	                    batch.draw(bombImage, x, y);
+	                }
+	            }
+	        }
+    		batch.draw(bombImage, 100, 100);
+	        time += Gdx.graphics.getDeltaTime();
+	        
+    	}
+    	//time = 0;
+    	//round++;
+    	System.out.println(time);
         batch.end();
     }
 

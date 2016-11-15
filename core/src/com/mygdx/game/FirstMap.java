@@ -6,6 +6,7 @@ public class FirstMap{
 	private StringBuilder MAP2[]; 
 	private int height;
     private int width;
+    private FirstMapRenderer firstMapRenderer;
     int stateC = 0;
     int stateR = 0;
     int positionBomb;
@@ -28,6 +29,7 @@ public class FirstMap{
     
     public void randomBomb() {
     	Random randomBomb = new Random();
+    	//firstMapRenderer = new FirstMapRenderer();
     	for (int i = 0;i < 5; i++){
     		if(i == 0) {
     			positionBomb = randomBomb.nextInt(8)+2;
@@ -35,6 +37,7 @@ public class FirstMap{
     				positionBomb += 4;
     			}
     			MAP2[3].setCharAt(positionBomb,'b');
+    		
     		} else if(i == 1) {
     			positionBomb = randomBomb.nextInt(8)+2;
     			if(positionBomb < 6) {
