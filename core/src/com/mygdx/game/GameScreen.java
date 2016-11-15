@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,12 +19,15 @@ public class GameScreen extends ScreenAdapter{
 	private FirstMap firstMap;
 	private SecMapRenderer secMapRenderer;
 	private SecMap secMap;
+	private ThirdMap thirdMap;
+	private ThirdMapRenderer thirdMapRenderer;
 	private Hero hero;
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private Texture gameOverImage;
 	private Sound bomb;
 	private Sound foot;
+	private Music mp3Music; 
 	
 	int x = 160;
 	int y = 440;
@@ -45,12 +49,18 @@ public class GameScreen extends ScreenAdapter{
         this.firstMapRenderer = new FirstMapRenderer(myGame.batch,firstMap);
         this.secMap = new SecMap();
         this.secMapRenderer = new SecMapRenderer(myGame.batch,secMap);
+        this.thirdMap = new ThirdMap();
+        this.thirdMapRenderer = new ThirdMapRenderer(myGame.batch,thirdMap);
         font = new BitmapFont();
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
         gameOverImage = new Texture("gameover.png");
         bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
-//        foot = Gdx.audio.newSound(Gdx.files.internal("footstep.mp3"));
+        foot = Gdx.audio.newSound(Gdx.files.internal("foot.mp3"));
+        mp3Music = Gdx.audio.newMusic(Gdx.files.internal("backMu.mp3"));
+        mp3Music.setLooping(true);
+        mp3Music.setVolume(0.8f);
+        mp3Music.play();
     }
     
     public void resize(int width, int height) {
@@ -66,22 +76,25 @@ public class GameScreen extends ScreenAdapter{
             System.out.println("KEY PRESSED ");
             if(firstMap.conMove((x+40)/40, (560-y)/40) && firstMap.canMoveDirection((560-y)/40, (x+40)/40)) {
             	x += 40;
-            	
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
             if(firstMap.conMove((x-40)/40, (560-y)/40) && firstMap.canMoveDirection((560-y)/40, (x-40)/40)) {
             	x -= 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
             if(firstMap.conMove((x)/40, (520-y)/40) && firstMap.canMoveDirection((520-y)/40, (x)/40)) {
             	y += 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
             if(firstMap.conMove((x)/40, (600-y)/40) && firstMap.canMoveDirection((600-y)/40, (x)/40)) {
             	y -= 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
        		firstMap.changeOldState();
@@ -96,24 +109,61 @@ public class GameScreen extends ScreenAdapter{
             System.out.println("KEY PRESSED ");
             if(secMap.conMove((x+40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x+40)/40)) {
             	x += 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
             if(secMap.conMove((x-40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x-40)/40)) {
             	x -= 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
             if(secMap.conMove((x)/40, (520-y)/40) && secMap.canMoveDirection((520-y)/40, (x)/40)) {
             	y += 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
             if(secMap.conMove((x)/40, (600-y)/40) && secMap.canMoveDirection((600-y)/40, (x)/40)) {
             	y -= 40;
+            	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){  
        		secMap.changeOldState();
+        	state_x = x;
+        	state_y = y;
+        	touch = false;
+        }
+    }
+    
+    public void updateThird(){    	
+    	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
+            System.out.println("KEY PRESSED ");
+            if(thirdMap.conMove((x+40)/40, (560-y)/40) && thirdMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            	x += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
+            System.out.println("KEY PRESSED ");
+            if(thirdMap.conMove((x-40)/40, (560-y)/40) && thirdMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            	x -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(thirdMap.conMove((x)/40, (520-y)/40) && thirdMap.canMoveDirection((520-y)/40, (x)/40)) {
+            	y += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(thirdMap.conMove((x)/40, (600-y)/40) && thirdMap.canMoveDirection((600-y)/40, (x)/40)) {
+            	y -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){  
+        	thirdMap.changeOldState();
         	state_x = x;
         	state_y = y;
         	touch = false;
@@ -130,6 +180,8 @@ public class GameScreen extends ScreenAdapter{
 			mapFirst();
 		} else if(map == 1) {
 			mapSec();
+		} else if(map == 2) {
+			mapThird();
 		}
         batch.begin();
         batch.draw(HeroImg, x, y);
@@ -150,10 +202,6 @@ public class GameScreen extends ScreenAdapter{
 			createBomb = true; 
 			//System.out.println(Gdx.graphics.getDeltaTime());     
 		} 
-		
-		//firstMapRenderer.hintBomb();
-		
-		
 		if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
@@ -186,6 +234,33 @@ public class GameScreen extends ScreenAdapter{
 		} if (secMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
+			state_x = 160;
+			state_y = 520;
+		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+			hero.life -= 1;
+			bomb.play(0.6f);
+			touch = true;
+		} if(hero.life == 0) {
+			batch.begin();
+	        batch.draw(gameOverImage, 100, 270);
+	        batch.end();
+	        gameOver = true;
+		} if(gameOver == false) {
+			updateSec();
+		}
+    }
+    
+    public void mapThird() {
+    	thirdMap.stateC = state_x/40;
+        thirdMap.stateR = (560-state_y)/40;
+		thirdMapRenderer.render();
+		//System.out.println(x + " " + y + " " + state_x + " " + state_y);
+		if (createBomb == false) {
+			thirdMap.randomBomb();
+			createBomb = true; 
+		} if (secMap.checkOut(state_x/40, (560-state_y)/40)) {
+			map++;
+			createBomb = false;
 			state_x = 200;
 			state_y = 440;
 		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
@@ -201,5 +276,4 @@ public class GameScreen extends ScreenAdapter{
 			updateSec();
 		}
     }
-    
 }

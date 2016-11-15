@@ -70,8 +70,6 @@ public class FirstMapRenderer {
 	        time += Gdx.graphics.getDeltaTime();
 	        
     	}
-    	//time = 0;
-    	//round++;
     	System.out.println(time);
         batch.end();
     }
