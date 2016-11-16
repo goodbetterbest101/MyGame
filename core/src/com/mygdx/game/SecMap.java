@@ -15,12 +15,12 @@ public class SecMap {
         MAP[0] = new StringBuilder("###############");
         MAP[1] = new StringBuilder("###############");
         MAP[2] = new StringBuilder("###############");
-        MAP[3] = new StringBuilder("####S......####");
-        MAP[4] = new StringBuilder("#####......####");
+        MAP[3] = new StringBuilder("####S.....u####");
+        MAP[4] = new StringBuilder("#####.l....####");
         MAP[5] = new StringBuilder("#####......####");
-        MAP[6] = new StringBuilder("#####......####");
+        MAP[6] = new StringBuilder("#####.....l####");
         MAP[7] = new StringBuilder("#####......####");
-        MAP[8] = new StringBuilder("#####......O###");
+        MAP[8] = new StringBuilder("#####.l....O###");
         MAP[9] = new StringBuilder("###############");
         MAP[10] = new StringBuilder("###############");
         height = MAP.length;
@@ -80,12 +80,20 @@ public class SecMap {
         return MAP[r].charAt(c) == 'B';
     }
     
+    public boolean hasLifeAt(int r, int c) {
+        return MAP[r].charAt(c) == 'L';
+    }
+    
+    public boolean hasShieldAt(int r, int c) {
+        return MAP[r].charAt(c) == 'U';
+    }
+    
     public boolean hasWallAt(int r, int c) {
         return MAP[r].charAt(c) == '#';
     }
  
     public boolean hasDotAt(int r, int c) {
-        return MAP[r].charAt(c) == '.' || MAP[r].charAt(c) == 'b';
+        return MAP[r].charAt(c) == '.' || MAP[r].charAt(c) == 'b' || MAP[r].charAt(c) == 'l' || MAP[r].charAt(c) == 'u';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -160,6 +168,10 @@ public class SecMap {
     public void changeOldState() {
     	if(MAP[stateR].charAt(stateC) == 'b' ){
     		MAP[stateR].setCharAt(stateC,'B');
+    	} else if(MAP[stateR].charAt(stateC) == 'u' ){
+    		MAP[stateR].setCharAt(stateC,'U');
+    	} else if(MAP[stateR].charAt(stateC) == 'l' ){
+    		MAP[stateR].setCharAt(stateC,'L');
     	} else {
     		MAP[stateR].setCharAt(stateC,'*');
     	}
@@ -167,6 +179,14 @@ public class SecMap {
     
     public boolean touchBomb(int c ,int r) {
     	return MAP[r].charAt(c) == 'b';
+    }
+    
+    public boolean touchLife(int c ,int r) {
+    	return MAP[r].charAt(c) == 'l';
+    }
+    
+    public boolean touchShield(int c ,int r) {
+    	return MAP[r].charAt(c) == 'u';
     }
     
     public boolean checkOut(int c ,int r) {

@@ -16,9 +16,9 @@ public class FirstMap{
         MAP2[1] = new StringBuilder("###############");
         MAP2[2] = new StringBuilder("###############");
         MAP2[3] = new StringBuilder("####S.....#####");
-        MAP2[4] = new StringBuilder("#####.....#####");
+        MAP2[4] = new StringBuilder("#####u..l.#####");
         MAP2[5] = new StringBuilder("#####.....#####");
-        MAP2[6] = new StringBuilder("#####.....#####");
+        MAP2[6] = new StringBuilder("#####.l...#####");
         MAP2[7] = new StringBuilder("#####.....O####");
         MAP2[8] = new StringBuilder("###############");
         MAP2[9] = new StringBuilder("###############");
@@ -44,25 +44,13 @@ public class FirstMap{
     				positionBomb += 4;
     			}
     			MAP2[4].setCharAt(positionBomb,'b');
-    		} else if(i == 2) {
-    			positionBomb = randomBomb.nextInt(8)+2;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP2[5].setCharAt(positionBomb,'b');
-    		} else if(i == 3) {
+    		}  else if(i == 3) {
     			positionBomb = randomBomb.nextInt(8)+2;
     			if(positionBomb < 6) {
     				positionBomb += 4;
     			}
     			MAP2[6].setCharAt(positionBomb,'b');
-    		} else if(i == 4) {
-    			positionBomb = randomBomb.nextInt(4)+1;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP2[7].setCharAt(positionBomb,'b');
-    		}
+    		} 
     	}
     }
     
@@ -83,11 +71,19 @@ public class FirstMap{
     }
  
     public boolean hasDotAt(int r, int c) {
-        return MAP2[r].charAt(c) == '.' || MAP2[r].charAt(c) == 'b';
+        return MAP2[r].charAt(c) == '.' || MAP2[r].charAt(c) == 'b' || MAP2[r].charAt(c) == 'u' || MAP2[r].charAt(c) == 'l';
     }
     
     public boolean hasBombAt(int r, int c) {
         return MAP2[r].charAt(c) == 'B';
+    }
+    
+    public boolean hasLifeAt(int r, int c) {
+        return MAP2[r].charAt(c) == 'L';
+    }
+    
+    public boolean hasShieldAt(int r, int c) {
+        return MAP2[r].charAt(c) == 'U';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -162,6 +158,10 @@ public class FirstMap{
     public void changeOldState() {
     	if(MAP2[stateR].charAt(stateC) == 'b' ){
     		MAP2[stateR].setCharAt(stateC,'B');
+    	}else if(MAP2[stateR].charAt(stateC) == 'u' ){
+    		MAP2[stateR].setCharAt(stateC,'U');
+    	}else if(MAP2[stateR].charAt(stateC) == 'l' ){
+    		MAP2[stateR].setCharAt(stateC,'L');
     	}else {
     		MAP2[stateR].setCharAt(stateC,'*');
     	}
@@ -169,6 +169,14 @@ public class FirstMap{
     
     public boolean touchBomb(int c ,int r) {
     	return MAP2[r].charAt(c) == 'b';
+    }
+    
+    public boolean touchLife(int c ,int r) {
+    	return MAP2[r].charAt(c) == 'l';
+    }
+    
+    public boolean touchShield(int c ,int r) {
+    	return MAP2[r].charAt(c) == 'u';
     }
     
     public boolean checkOut(int c ,int r) {

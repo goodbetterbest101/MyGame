@@ -27,6 +27,8 @@ public class GameScreen extends ScreenAdapter{
 	private Texture gameOverImage;
 	private Sound bomb;
 	private Sound foot;
+	private Sound life;
+	private Sound shield;
 	private Music mp3Music; 
 	
 	int x = 160;
@@ -57,6 +59,8 @@ public class GameScreen extends ScreenAdapter{
         gameOverImage = new Texture("gameover.png");
         bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
         foot = Gdx.audio.newSound(Gdx.files.internal("foot.mp3"));
+        life = Gdx.audio.newSound(Gdx.files.internal("lifeUp.mp3"));
+        shield = Gdx.audio.newSound(Gdx.files.internal("shieldUp.mp3"));
         mp3Music = Gdx.audio.newMusic(Gdx.files.internal("backMu.mp3"));
         mp3Music.setLooping(true);
         mp3Music.setVolume(0.8f);
@@ -186,10 +190,32 @@ public class GameScreen extends ScreenAdapter{
         batch.begin();
         batch.draw(HeroImg, x, y);
         font.draw(batch, "LIFE : " + hero.life, 25, 140 );
-        font.draw(batch, "STATUS : " , 200, 140 );
+        font.draw(batch, "SHIELD : " + hero.shield, 125, 140 );
         batch.end();
        
         System.out.println(firstMap.stateC + "   " + firstMap.stateR);     
+    }
+    
+    public void touchBomb(){
+    	if(hero.shield > 0){
+			hero.shield -= 1;
+		} else {
+			hero.life -= 1;
+		}
+		bomb.play(0.6f);
+		touch = true;
+    }
+    
+    public void touchLife(){
+    	hero.life += 1;
+		life.play(0.6f);
+		touch = true;
+    }
+    
+    public void touchShield(){
+    	hero.shield += 1;
+		shield.play(0.6f);
+		touch = true;
     }
     
     public void mapFirst(){
@@ -198,11 +224,8 @@ public class GameScreen extends ScreenAdapter{
 		firstMapRenderer.render();
 		if (createBomb == false) {
 			firstMap.randomBomb();
-			//firstMapRenderer.hintBomb();
 			createBomb = true; 
-			//System.out.println(Gdx.graphics.getDeltaTime());     
-		} 
-		if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 200;
@@ -210,9 +233,11 @@ public class GameScreen extends ScreenAdapter{
 			x = 160;
 			y = 440;
 		} if(firstMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
-			hero.life -= 1;
-			bomb.play(0.6f);
-			touch = true;
+			touchBomb();
+		} if(firstMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+			touchLife();
+		} if(firstMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
 	        batch.draw(gameOverImage, 100, 270);
@@ -235,11 +260,15 @@ public class GameScreen extends ScreenAdapter{
 			map++;
 			createBomb = false;
 			state_x = 160;
-			state_y = 520;
+			state_y = 480;
+			x = 120;
+			y = 480;
 		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
-			hero.life -= 1;
-			bomb.play(0.6f);
-			touch = true;
+			touchBomb();
+		} if(secMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+			touchLife();
+		} if(secMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
 	        batch.draw(gameOverImage, 100, 270);
@@ -254,26 +283,29 @@ public class GameScreen extends ScreenAdapter{
     	thirdMap.stateC = state_x/40;
         thirdMap.stateR = (560-state_y)/40;
 		thirdMapRenderer.render();
-		//System.out.println(x + " " + y + " " + state_x + " " + state_y);
+		System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (createBomb == false) {
 			thirdMap.randomBomb();
 			createBomb = true; 
-		} if (secMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (thirdMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 200;
 			state_y = 440;
-		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
-			hero.life -= 1;
-			bomb.play(0.6f);
-			touch = true;
+		} if(thirdMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+			touchBomb();
+			System.out.println("BOMBBB !!!");
+		} if(thirdMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+			touchLife();
+		} if(thirdMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
 	        batch.draw(gameOverImage, 100, 270);
 	        batch.end();
 	        gameOver = true;
 		} if(gameOver == false) {
-			updateSec();
+			updateThird();
 		}
     }
 }

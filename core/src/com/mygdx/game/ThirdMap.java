@@ -14,13 +14,13 @@ public class ThirdMap {
         MAP = new StringBuilder[11];
         MAP[0] = new StringBuilder("###############");
         MAP[1] = new StringBuilder("###############");
-        MAP[2] = new StringBuilder("###S.......####");
+        MAP[2] = new StringBuilder("###S..u....####");
         MAP[3] = new StringBuilder("####.......####");
-        MAP[4] = new StringBuilder("####.......####");
+        MAP[4] = new StringBuilder("####...l...####");
         MAP[5] = new StringBuilder("####.......####");
-        MAP[6] = new StringBuilder("####.......####");
+        MAP[6] = new StringBuilder("####l....u.####");
         MAP[7] = new StringBuilder("####.......####");
-        MAP[8] = new StringBuilder("####.......O###");
+        MAP[8] = new StringBuilder("####...l...O###");
         MAP[9] = new StringBuilder("###############");
         MAP[10] = new StringBuilder("###############");
         height = MAP.length;
@@ -85,7 +85,7 @@ public class ThirdMap {
     }
  
     public boolean hasDotAt(int r, int c) {
-        return MAP[r].charAt(c) == '.' || MAP[r].charAt(c) == 'b';
+        return MAP[r].charAt(c) == '.' || MAP[r].charAt(c) == 'b' || MAP[r].charAt(c) == 'l' || MAP[r].charAt(c) == 'u';
     }
     
     public boolean hasOldState(int r, int c) {
@@ -167,6 +167,14 @@ public class ThirdMap {
     
     public boolean touchBomb(int c ,int r) {
     	return MAP[r].charAt(c) == 'b';
+    }
+    
+    public boolean touchLife(int c ,int r) {
+    	return MAP[r].charAt(c) == 'l';
+    }
+    
+    public boolean touchShield(int c ,int r) {
+    	return MAP[r].charAt(c) == 'u';
     }
     
     public boolean checkOut(int c ,int r) {

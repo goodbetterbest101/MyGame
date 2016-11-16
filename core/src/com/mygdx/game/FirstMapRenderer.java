@@ -14,6 +14,8 @@ public class FirstMapRenderer {
     private Texture choiceImage;
     private Texture doorImage;
     private Texture bombImage;
+    private Texture lifeImage;
+    private Texture shieldImage;
     int time = 0;
     int round = 0;
  
@@ -26,6 +28,8 @@ public class FirstMapRenderer {
         choiceImage = new Texture("choice.png");
         doorImage = new Texture("door.png");
         bombImage = new Texture("bomb.png");
+        lifeImage = new Texture("life.png");
+        shieldImage = new Texture("shield.png");
     }
  
     public void render() {
@@ -41,6 +45,10 @@ public class FirstMapRenderer {
                 	batch.draw(doorImage, x, y);
                 } else if(firstMap.hasBombAt(r, c)) {
                     batch.draw(bombImage, x, y);
+                } else if(firstMap.hasLifeAt(r, c)) {
+                    batch.draw(lifeImage, x, y);
+                } else if(firstMap.hasShieldAt(r, c)) {
+                    batch.draw(shieldImage, x, y);
                 } else if(firstMap.hasOldState(r, c)) {
                     batch.draw(oldStateImage, x, y);
                 } else if(firstMap.hasChoiceRightAt(r, c) || firstMap.hasChoiceUpAt(r, c) || firstMap.hasChoiceDownAt(r, c) ||firstMap.hasChoiceLeftAt(r, c)) {
