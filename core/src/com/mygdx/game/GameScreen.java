@@ -21,6 +21,8 @@ public class GameScreen extends ScreenAdapter{
 	private SecMap secMap;
 	private ThirdMap thirdMap;
 	private ThirdMapRenderer thirdMapRenderer;
+	private FourthMap fourthMap;
+	private FourthMapRenderer fourthMapRenderer;
 	private Hero hero;
 	private BitmapFont font;
 	private OrthographicCamera camera;
@@ -53,6 +55,8 @@ public class GameScreen extends ScreenAdapter{
         this.secMapRenderer = new SecMapRenderer(myGame.batch,secMap);
         this.thirdMap = new ThirdMap();
         this.thirdMapRenderer = new ThirdMapRenderer(myGame.batch,thirdMap);
+        this.fourthMap = new FourthMap();
+        this.fourthMapRenderer = new FourthMapRenderer(myGame.batch,fourthMap);
         font = new BitmapFont();
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
@@ -174,6 +178,39 @@ public class GameScreen extends ScreenAdapter{
         }
     }
     
+    public void updateFourth(){    	
+    	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
+            System.out.println("KEY PRESSED ");
+            if(fourthMap.conMove((x+40)/40, (560-y)/40) && fourthMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            	x += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
+            System.out.println("KEY PRESSED ");
+            if(fourthMap.conMove((x-40)/40, (560-y)/40) && fourthMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            	x -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(fourthMap.conMove((x)/40, (520-y)/40) && fourthMap.canMoveDirection((520-y)/40, (x)/40)) {
+            	y += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(fourthMap.conMove((x)/40, (600-y)/40) && fourthMap.canMoveDirection((600-y)/40, (x)/40)) {
+            	y -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){  
+        	fourthMap.changeOldState();
+        	state_x = x;
+        	state_y = y;
+        	touch = false;
+        }
+    }
+    
     @Override
     public void render(float delta) {
     	state_c = x/40;
@@ -186,7 +223,9 @@ public class GameScreen extends ScreenAdapter{
 			mapSec();
 		} else if(map == 2) {
 			mapThird();
-		}
+		} else if(map == 3) {
+			mapFourth();
+		} 
         batch.begin();
         batch.draw(HeroImg, x, y);
         font.draw(batch, "LIFE : " + hero.life, 25, 140 );
@@ -290,8 +329,10 @@ public class GameScreen extends ScreenAdapter{
 		} if (thirdMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
-			state_x = 200;
-			state_y = 440;
+			state_x = 160;
+			state_y = 480;
+			x = 120;
+			y = 480;
 		} if(thirdMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
@@ -306,6 +347,36 @@ public class GameScreen extends ScreenAdapter{
 	        gameOver = true;
 		} if(gameOver == false) {
 			updateThird();
+		}
+    }
+    
+    public void mapFourth() {
+    	fourthMap.stateC = state_x/40;
+        fourthMap.stateR = (560-state_y)/40;
+		fourthMapRenderer.render();
+		System.out.println(x + " " + y + " " + state_x + " " + state_y);
+		if (createBomb == false) {
+			fourthMap.randomBomb();
+			createBomb = true; 
+		} if (fourthMap.checkOut(state_x/40, (560-state_y)/40)) {
+			map++;
+			createBomb = false;
+			state_x = 200;
+			state_y = 440;
+		} if(fourthMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+			touchBomb();
+			System.out.println("BOMBBB !!!");
+		} if(fourthMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+			touchLife();
+		} if(fourthMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+			touchShield();
+		} if(hero.life == 0) {
+			batch.begin();
+	        batch.draw(gameOverImage, 100, 270);
+	        batch.end();
+	        gameOver = true;
+		} if(gameOver == false) {
+			updateFourth();
 		}
     }
 }

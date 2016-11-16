@@ -2,26 +2,26 @@ package com.mygdx.game;
 
 import java.util.Random;
 
-public class ThirdMap {
+public class FourthMap {
 	private StringBuilder MAP[]; 
 	private int height;
     private int width;
     int stateC = 0;
     int stateR = 0;
     int positionBomb;
-    public ThirdMap() {
+    public FourthMap() {
         
         MAP = new StringBuilder[11];
         MAP[0] = new StringBuilder("###############");
         MAP[1] = new StringBuilder("###############");
-        MAP[2] = new StringBuilder("###S..u....####");
-        MAP[3] = new StringBuilder("####.......####");
-        MAP[4] = new StringBuilder("####...l...####");
-        MAP[5] = new StringBuilder("####.......####");
-        MAP[6] = new StringBuilder("####l....u.####");
-        MAP[7] = new StringBuilder("####.......####");
-        MAP[8] = new StringBuilder("####...l...O###");
-        MAP[9] = new StringBuilder("###############");
+        MAP[2] = new StringBuilder("###S..u...u.###");
+        MAP[3] = new StringBuilder("####........###");
+        MAP[4] = new StringBuilder("####...l....###");
+        MAP[5] = new StringBuilder("####........###");
+        MAP[6] = new StringBuilder("####l....u..###");
+        MAP[7] = new StringBuilder("####........###");
+        MAP[8] = new StringBuilder("####...l....###");
+        MAP[9] = new StringBuilder("####........O##");
         MAP[10] = new StringBuilder("###############");
         height = MAP.length;
         width = MAP[0].length();
@@ -82,20 +82,20 @@ public class ThirdMap {
         return (MAP[r].charAt(c) == 'S' || MAP[r].charAt(c) == 'O');
     }
     
-    public boolean hasBombAt(int r, int c) {
-        return MAP[r].charAt(c) == 'B';
-    }
-    
-    public boolean hasWallAt(int r, int c) {
-        return MAP[r].charAt(c) == '#';
-    }
-    
     public boolean hasLifeAt(int r, int c) {
         return MAP[r].charAt(c) == 'L';
     }
     
     public boolean hasShieldAt(int r, int c) {
         return MAP[r].charAt(c) == 'U';
+    }
+    
+    public boolean hasBombAt(int r, int c) {
+        return MAP[r].charAt(c) == 'B';
+    }
+    
+    public boolean hasWallAt(int r, int c) {
+        return MAP[r].charAt(c) == '#';
     }
  
     public boolean hasDotAt(int r, int c) {
