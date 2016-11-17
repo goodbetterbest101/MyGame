@@ -78,6 +78,10 @@ public class FirstMap{
         return MAP2[r].charAt(c) == 'B';
     }
     
+    public boolean hasBombHintAt(int r, int c) {
+        return MAP2[r].charAt(c) == 'b';
+    }
+    
     public boolean hasLifeAt(int r, int c) {
         return MAP2[r].charAt(c) == 'L';
     }

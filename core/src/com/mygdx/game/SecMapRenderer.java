@@ -14,6 +14,8 @@ public class SecMapRenderer {
     private Texture bombImage;
     private Texture lifeImage;
     private Texture shieldImage;
+    float time = 0;
+    int round = 0;
  
     public SecMapRenderer(SpriteBatch batch, SecMap secMap) { //constructor
         this.secMap = secMap;
@@ -27,10 +29,32 @@ public class SecMapRenderer {
         lifeImage = new Texture("life.png");
         shieldImage = new Texture("shield.png");
     }
+    
+    public void renderHint(){
+    	for(int r = 0; r < secMap.getHeight(); r++) {
+            for(int c = 0; c < secMap.getWidth(); c++) {
+                int x = c * 40;
+                int y = MyGame.HEIGHT - (r * 40) - 40;
  
-    public void render() {
-    	batch.begin();
-        for(int r = 0; r < secMap.getHeight(); r++) {
+                if(secMap.hasWallAt(r, c)) {
+                    batch.draw(wallImage, x, y);
+                } else if(secMap.hasDoorAt(r, c)) {
+                	batch.draw(doorImage, x, y);
+                } else if(secMap.hasBombHintAt(r, c)) {
+                    batch.draw(bombImage, x, y);
+                } else if(secMap.hasOldState(r, c)) {
+                    batch.draw(oldStateImage, x, y);
+                } else if(secMap.hasChoiceRightAt(r, c) || secMap.hasChoiceUpAt(r, c) || secMap.hasChoiceDownAt(r, c) || secMap.hasChoiceLeftAt(r, c)) {
+                    batch.draw(choiceImage, x, y);
+                } else if(secMap.hasDotAt(r, c)) {
+                    batch.draw(floorImage, x, y);
+                }
+            }
+        }
+    }
+    
+    public void renderMap(){
+    	for(int r = 0; r < secMap.getHeight(); r++) {
             for(int c = 0; c < secMap.getWidth(); c++) {
                 int x = c * 40;
                 int y = MyGame.HEIGHT - (r * 40) - 40;
@@ -54,6 +78,19 @@ public class SecMapRenderer {
                 }
             }
         }
+    }
+    
+    public void render() {
+    	time += 0.05;
+    	batch.begin();
+    	if(time > 4){
+    		round++;
+    	}
+    	if(round == 0){
+    		renderHint();
+    	} else {
+	        renderMap();
+    	}
         batch.end();
     }
 

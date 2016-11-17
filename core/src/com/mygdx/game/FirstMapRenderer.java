@@ -16,7 +16,7 @@ public class FirstMapRenderer {
     private Texture bombImage;
     private Texture lifeImage;
     private Texture shieldImage;
-    int time = 0;
+    float time = 0;
     int round = 0;
  
     public FirstMapRenderer(SpriteBatch batch, FirstMap firstMap) { //constructor
@@ -31,10 +31,32 @@ public class FirstMapRenderer {
         lifeImage = new Texture("life.png");
         shieldImage = new Texture("shield.png");
     }
+    
+    public void renderHint(){
+    	for(int r = 0; r < firstMap.getHeight(); r++) {
+            for(int c = 0; c < firstMap.getWidth(); c++) {
+                int x = c * 40;
+                int y = MyGame.HEIGHT - (r * 40) - 40;
  
-    public void render() {
-    	batch.begin();
-        for(int r = 0; r < firstMap.getHeight(); r++) {
+                if(firstMap.hasWallAt(r, c)) {
+                    batch.draw(wallImage, x, y);
+                } else if(firstMap.hasDoorAt(r, c)) {
+                	batch.draw(doorImage, x, y);
+                } else if(firstMap.hasBombHintAt(r, c)) {
+                    batch.draw(bombImage, x, y);
+                } else if(firstMap.hasOldState(r, c)) {
+                    batch.draw(oldStateImage, x, y);
+                } else if(firstMap.hasChoiceRightAt(r, c) || firstMap.hasChoiceUpAt(r, c) || firstMap.hasChoiceDownAt(r, c) ||firstMap.hasChoiceLeftAt(r, c)) {
+                    batch.draw(choiceImage, x, y);
+                } else if(firstMap.hasDotAt(r, c)) {
+                    batch.draw(floorImage, x, y);
+                } 
+            }
+        }
+    }
+    
+    public void renderMap(){
+    	for(int r = 0; r < firstMap.getHeight(); r++) {
             for(int c = 0; c < firstMap.getWidth(); c++) {
                 int x = c * 40;
                 int y = MyGame.HEIGHT - (r * 40) - 40;
@@ -58,6 +80,19 @@ public class FirstMapRenderer {
                 } 
             }
         }
+    }
+    
+    public void render() {
+    	time += 0.05;
+    	batch.begin();
+    	if(time > 4){
+    		round++;
+    	}
+    	if(round == 0){
+    		renderHint();
+    	} else {
+	        renderMap();
+    	}
         batch.end();
     }
     

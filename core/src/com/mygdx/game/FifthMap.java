@@ -94,6 +94,10 @@ public class FifthMap {
         return MAP[r].charAt(c) == 'B';
     }
     
+    public boolean hasBombHintAt(int r, int c) {
+        return MAP[r].charAt(c) == 'b';
+    }
+    
     public boolean hasWallAt(int r, int c) {
         return MAP[r].charAt(c) == '#';
     }

@@ -273,7 +273,7 @@ public class GameScreen extends ScreenAdapter{
         font.draw(batch, "MAP : " + (map+1) , 250, 140 );
         batch.end();
        
-        System.out.println(firstMap.stateC + "   " + firstMap.stateR);     
+        System.out.println(firstMap.stateC + "   " + firstMap.stateR + "   " + firstMapRenderer.time);     
     }
     
     public void touchBomb(){
