@@ -31,6 +31,7 @@ public class GameScreen extends ScreenAdapter{
 	private BitmapFont font;
 	private OrthographicCamera camera;
 	private Texture gameOverImage;
+	private Texture finishImage;
 	private Sound bomb;
 	private Sound foot;
 	private Sound life;
@@ -70,6 +71,7 @@ public class GameScreen extends ScreenAdapter{
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
         gameOverImage = new Texture("gameover.png");
+        finishImage = new Texture("finish.png");
         bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
         foot = Gdx.audio.newSound(Gdx.files.internal("foot.mp3"));
         life = Gdx.audio.newSound(Gdx.files.internal("lifeUp.mp3"));
@@ -440,12 +442,15 @@ public class GameScreen extends ScreenAdapter{
         fifthMapRenderer.render();
 		System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (fifthMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
-			map++;
-			createBomb = false;
-			state_x = 160;
-			state_y = 480;
-			x = 120;
-			y = 480;
+			batch.begin();
+			batch.draw(finishImage, 100, 270);
+			batch.end();
+//			map++;
+//			createBomb = false;
+//			state_x = 160;
+//			state_y = 480;
+//			x = 120;
+//			y = 480;
 		} if(fifthMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
