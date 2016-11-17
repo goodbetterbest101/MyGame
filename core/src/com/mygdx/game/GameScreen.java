@@ -25,6 +25,8 @@ public class GameScreen extends ScreenAdapter{
 	private FourthMapRenderer fourthMapRenderer;
 	private FifthMap fifthMap;
 	private FifthMapRenderer fifthMapRenderer;
+	private FirstScreen firstScreen;
+	private SecScreen secScreen;
 	private Hero hero;
 	private BitmapFont font;
 	private OrthographicCamera camera;
@@ -46,6 +48,7 @@ public class GameScreen extends ScreenAdapter{
 	boolean touch = false;
 	boolean gameOver = false;
 	int map = 0;
+	int screen = 0;
 	
     public GameScreen(MyGame myGame) {
         this.myGame = myGame;
@@ -61,6 +64,8 @@ public class GameScreen extends ScreenAdapter{
         this.fourthMapRenderer = new FourthMapRenderer(myGame.batch,fourthMap);
         this.fifthMap = new FifthMap();
         this.fifthMapRenderer = new FifthMapRenderer(myGame.batch,fifthMap);
+        firstScreen = new FirstScreen(myGame.batch);
+        secScreen = new SecScreen(myGame.batch);
         font = new BitmapFont();
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
@@ -92,19 +97,19 @@ public class GameScreen extends ScreenAdapter{
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
-            if(firstMap.conMove((x-40)/40, (560-y)/40) && firstMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            if(firstMap.conMove((x-40)/40, (MyGame.HEIGHT-40-y)/40) && firstMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x-40)/40)) {
             	x -= 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
-            if(firstMap.conMove((x)/40, (520-y)/40) && firstMap.canMoveDirection((520-y)/40, (x)/40)) {
+            if(firstMap.conMove((x)/40, (MyGame.HEIGHT-80-y)/40) && firstMap.canMoveDirection((MyGame.HEIGHT-80-y)/40, (x)/40)) {
             	y += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
-            if(firstMap.conMove((x)/40, (600-y)/40) && firstMap.canMoveDirection((600-y)/40, (x)/40)) {
+            if(firstMap.conMove((x)/40, (MyGame.HEIGHT-y)/40) && firstMap.canMoveDirection((MyGame.HEIGHT-y)/40, (x)/40)) {
             	y -= 40;
             	foot.play(0.75f);
             }
@@ -119,25 +124,25 @@ public class GameScreen extends ScreenAdapter{
     public void updateSec(){    	
     	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
             System.out.println("KEY PRESSED ");
-            if(secMap.conMove((x+40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            if(secMap.conMove((x+40)/40, (MyGame.HEIGHT-40-y)/40) && secMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x+40)/40)) {
             	x += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
-            if(secMap.conMove((x-40)/40, (560-y)/40) && secMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            if(secMap.conMove((x-40)/40, (MyGame.HEIGHT-40-y)/40) && secMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x-40)/40)) {
             	x -= 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
-            if(secMap.conMove((x)/40, (520-y)/40) && secMap.canMoveDirection((520-y)/40, (x)/40)) {
+            if(secMap.conMove((x)/40, (MyGame.HEIGHT-80-y)/40) && secMap.canMoveDirection((MyGame.HEIGHT-80-y)/40, (x)/40)) {
             	y += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
-            if(secMap.conMove((x)/40, (600-y)/40) && secMap.canMoveDirection((600-y)/40, (x)/40)) {
+            if(secMap.conMove((x)/40, (MyGame.HEIGHT-y)/40) && secMap.canMoveDirection((MyGame.HEIGHT-y)/40, (x)/40)) {
             	y -= 40;
             	foot.play(0.75f);
             }
@@ -152,25 +157,25 @@ public class GameScreen extends ScreenAdapter{
     public void updateThird(){    	
     	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
             System.out.println("KEY PRESSED ");
-            if(thirdMap.conMove((x+40)/40, (560-y)/40) && thirdMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            if(thirdMap.conMove((x+40)/40, (MyGame.HEIGHT-40-y)/40) && thirdMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x+40)/40)) {
             	x += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
-            if(thirdMap.conMove((x-40)/40, (560-y)/40) && thirdMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            if(thirdMap.conMove((x-40)/40, (MyGame.HEIGHT-40-y)/40) && thirdMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x-40)/40)) {
             	x -= 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
-            if(thirdMap.conMove((x)/40, (520-y)/40) && thirdMap.canMoveDirection((520-y)/40, (x)/40)) {
+            if(thirdMap.conMove((x)/40, (MyGame.HEIGHT-80-y)/40) && thirdMap.canMoveDirection((MyGame.HEIGHT-80-y)/40, (x)/40)) {
             	y += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
-            if(thirdMap.conMove((x)/40, (600-y)/40) && thirdMap.canMoveDirection((600-y)/40, (x)/40)) {
+            if(thirdMap.conMove((x)/40, (MyGame.HEIGHT-y)/40) && thirdMap.canMoveDirection((MyGame.HEIGHT-y)/40, (x)/40)) {
             	y -= 40;
             	foot.play(0.75f);
             }
@@ -185,25 +190,25 @@ public class GameScreen extends ScreenAdapter{
     public void updateFourth(){    	
     	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
             System.out.println("KEY PRESSED ");
-            if(fourthMap.conMove((x+40)/40, (560-y)/40) && fourthMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            if(fourthMap.conMove((x+40)/40, (MyGame.HEIGHT-40-y)/40) && fourthMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x+40)/40)) {
             	x += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
-            if(fourthMap.conMove((x-40)/40, (560-y)/40) && fourthMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            if(fourthMap.conMove((x-40)/40, (MyGame.HEIGHT-40-y)/40) && fourthMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x-40)/40)) {
             	x -= 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
-            if(fourthMap.conMove((x)/40, (520-y)/40) && fourthMap.canMoveDirection((520-y)/40, (x)/40)) {
+            if(fourthMap.conMove((x)/40, (MyGame.HEIGHT-80-y)/40) && fourthMap.canMoveDirection((MyGame.HEIGHT-80-y)/40, (x)/40)) {
             	y += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
-            if(fourthMap.conMove((x)/40, (600-y)/40) && fourthMap.canMoveDirection((600-y)/40, (x)/40)) {
+            if(fourthMap.conMove((x)/40, (MyGame.HEIGHT-y)/40) && fourthMap.canMoveDirection((MyGame.HEIGHT-y)/40, (x)/40)) {
             	y -= 40;
             	foot.play(0.75f);
             }
@@ -218,25 +223,25 @@ public class GameScreen extends ScreenAdapter{
     public void updateFifth(){    	
     	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
             System.out.println("KEY PRESSED ");
-            if(fifthMap.conMove((x+40)/40, (560-y)/40) && fifthMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            if(fifthMap.conMove((x+40)/40, (MyGame.HEIGHT-40-y)/40) && fifthMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x+40)/40)) {
             	x += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
             System.out.println("KEY PRESSED ");
-            if(fifthMap.conMove((x-40)/40, (560-y)/40) && fifthMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            if(fifthMap.conMove((x-40)/40, (MyGame.HEIGHT-40-y)/40) && fifthMap.canMoveDirection((MyGame.HEIGHT-40-y)/40, (x-40)/40)) {
             	x -= 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
             System.out.println("KEY PRESSED ");
-            if(fifthMap.conMove((x)/40, (520-y)/40) && fifthMap.canMoveDirection((520-y)/40, (x)/40)) {
+            if(fifthMap.conMove((x)/40, (MyGame.HEIGHT-80-y)/40) && fifthMap.canMoveDirection((MyGame.HEIGHT-80-y)/40, (x)/40)) {
             	y += 40;
             	foot.play(0.75f);
             }
         } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
             System.out.println("KEY PRESSED ");
-            if(fifthMap.conMove((x)/40, (600-y)/40) && fifthMap.canMoveDirection((600-y)/40, (x)/40)) {
+            if(fifthMap.conMove((x)/40, (MyGame.HEIGHT-y)/40) && fifthMap.canMoveDirection((MyGame.HEIGHT-y)/40, (x)/40)) {
             	y -= 40;
             	foot.play(0.75f);
             }
@@ -252,28 +257,35 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
     	state_c = x/40;
-    	state_r = (560-y)/40;
-    	Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(map == 0) {
-			mapFirst();
-		} else if(map == 1) {
-			mapSec();
-		} else if(map == 2) {
-			mapThird();
-		} else if(map == 3) {
-			mapFourth();
-		} else if(map == 4) {
-			mapFifth();
-		} 
-        batch.begin();
-        batch.draw(HeroImg, x, y);
-        font.draw(batch, "LIFE : " + hero.life, 25, 140 );
-        font.draw(batch, "SHIELD : " + hero.shield, 125, 140 );
-        font.draw(batch, "MAP : " + (map+1) , 250, 140 );
-        batch.end();
-       
-        System.out.println(firstMap.stateC + "   " + firstMap.stateR + "   " + firstMapRenderer.time);     
+    	state_r = (MyGame.HEIGHT-40-y)/40;
+    	if(firstScreen.thisScreen == true){
+    		firstScreen.render();
+    	} else if(secScreen.thisScreen == true){
+    		secScreen.render();
+    	}else {
+	    	Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			if(map == 0) {
+				mapFirst();
+			} else if(map == 1) {
+				mapSec();
+			} else if(map == 2) {
+				mapThird();
+			} else if(map == 3) {
+				mapFourth();
+			} else if(map == 4) {
+				mapFifth();
+			} 
+			
+	        batch.begin();
+	        batch.draw(HeroImg, x, y);
+	        font.draw(batch, "LIFE : " + hero.life, 125, 140 );
+	        font.draw(batch, "SHIELD : " + hero.shield, 250, 140 );
+	        font.draw(batch, "MAP : " + (map+1) , 390, 140 );
+	        batch.end();
+	       
+	        System.out.println(firstMap.stateC + "   " + firstMap.stateR + "   " + firstMapRenderer.time);   
+    	}
     }
     
     public void touchBomb(){
@@ -300,23 +312,23 @@ public class GameScreen extends ScreenAdapter{
     
     public void mapFirst(){
     	firstMap.stateC = state_x/40;
-        firstMap.stateR = (560-state_y)/40;
+        firstMap.stateR = (MyGame.HEIGHT-40-state_y)/40;
 		firstMapRenderer.render();
 		if (createBomb == false) {
 			firstMap.randomBomb();
 			createBomb = true; 
-		} if (firstMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (firstMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 200;
 			state_y = 440;
 			x = 160;
 			y = 440;
-		} if(firstMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(firstMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
-		} if(firstMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(firstMap.touchLife(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchLife();
-		} if(firstMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(firstMap.touchShield(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
@@ -330,24 +342,24 @@ public class GameScreen extends ScreenAdapter{
     
     public void mapSec() {
     	secMap.stateC = state_x/40;
-        secMap.stateR = (560-state_y)/40;
+        secMap.stateR = (MyGame.HEIGHT-40-state_y)/40;
 		secMapRenderer.render();
 		//System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (createBomb == false) {
 			secMap.randomBomb();
 			createBomb = true; 
-		} if (secMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (secMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 160;
 			state_y = 480;
 			x = 120;
 			y = 480;
-		} if(secMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(secMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
-		} if(secMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(secMap.touchLife(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchLife();
-		} if(secMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(secMap.touchShield(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
@@ -361,25 +373,25 @@ public class GameScreen extends ScreenAdapter{
     
     public void mapThird() {
     	thirdMap.stateC = state_x/40;
-        thirdMap.stateR = (560-state_y)/40;
+        thirdMap.stateR = (MyGame.HEIGHT-40-state_y)/40;
 		thirdMapRenderer.render();
 		System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (createBomb == false) {
 			thirdMap.randomBomb();
 			createBomb = true; 
-		} if (thirdMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (thirdMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 160;
 			state_y = 480;
 			x = 120;
 			y = 480;
-		} if(thirdMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(thirdMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
-		} if(thirdMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(thirdMap.touchLife(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchLife();
-		} if(thirdMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(thirdMap.touchShield(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
@@ -393,25 +405,25 @@ public class GameScreen extends ScreenAdapter{
     
     public void mapFourth() {
     	fourthMap.stateC = state_x/40;
-        fourthMap.stateR = (560-state_y)/40;
+        fourthMap.stateR = (MyGame.HEIGHT-40-state_y)/40;
 		fourthMapRenderer.render();
 		System.out.println(x + " " + y + " " + state_x + " " + state_y);
 		if (createBomb == false) {
 			fourthMap.randomBomb();
 			createBomb = true; 
-		} if (fourthMap.checkOut(state_x/40, (560-state_y)/40)) {
+		} if (fourthMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 120;
 			state_y = 520;
 			x = 80;
 			y = 520;
-		} if(fourthMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fourthMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
-		} if(fourthMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fourthMap.touchLife(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchLife();
-		} if(fourthMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fourthMap.touchShield(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();
@@ -424,22 +436,22 @@ public class GameScreen extends ScreenAdapter{
     }
     public void mapFifth() {
     	fifthMap.stateC = state_x/40;
-        fifthMap.stateR = (560-state_y)/40;
+        fifthMap.stateR = (MyGame.HEIGHT-40-state_y)/40;
         fifthMapRenderer.render();
 		System.out.println(x + " " + y + " " + state_x + " " + state_y);
-		if (fifthMap.checkOut(state_x/40, (560-state_y)/40)) {
+		if (fifthMap.checkOut(state_x/40, (MyGame.HEIGHT-40-state_y)/40)) {
 			map++;
 			createBomb = false;
 			state_x = 160;
 			state_y = 480;
 			x = 120;
 			y = 480;
-		} if(fifthMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fifthMap.touchBomb(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
-		} if(fifthMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fifthMap.touchLife(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchLife();
-		} if(fifthMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+		} if(fifthMap.touchShield(state_x/40, (MyGame.HEIGHT-40-state_y)/40) && touch == false) {
 			touchShield();
 		} if(hero.life == 0) {
 			batch.begin();

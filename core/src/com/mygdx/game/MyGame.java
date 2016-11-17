@@ -7,7 +7,7 @@ import com.mygdx.game.GameScreen;
 
 public class MyGame extends Game {
 	public static final int HEIGHT = 600;
-    public static final int WIDTH = 800;
+    public static final int WIDTH = 600;
 	public SpriteBatch batch;
 	Texture heroImg;
 	
