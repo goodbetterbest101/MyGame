@@ -23,6 +23,8 @@ public class GameScreen extends ScreenAdapter{
 	private ThirdMapRenderer thirdMapRenderer;
 	private FourthMap fourthMap;
 	private FourthMapRenderer fourthMapRenderer;
+	private FifthMap fifthMap;
+	private FifthMapRenderer fifthMapRenderer;
 	private Hero hero;
 	private BitmapFont font;
 	private OrthographicCamera camera;
@@ -57,6 +59,8 @@ public class GameScreen extends ScreenAdapter{
         this.thirdMapRenderer = new ThirdMapRenderer(myGame.batch,thirdMap);
         this.fourthMap = new FourthMap();
         this.fourthMapRenderer = new FourthMapRenderer(myGame.batch,fourthMap);
+        this.fifthMap = new FifthMap();
+        this.fifthMapRenderer = new FifthMapRenderer(myGame.batch,fifthMap);
         font = new BitmapFont();
         camera = new OrthographicCamera();
         HeroImg = new Texture("hero.png");
@@ -211,6 +215,40 @@ public class GameScreen extends ScreenAdapter{
         }
     }
     
+    public void updateFifth(){    	
+    	if (Gdx.input.isKeyJustPressed(Keys.RIGHT) && x < state_x + 40) {
+            System.out.println("KEY PRESSED ");
+            if(fifthMap.conMove((x+40)/40, (560-y)/40) && fifthMap.canMoveDirection((560-y)/40, (x+40)/40)) {
+            	x += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.LEFT) && x > state_x - 40) {
+            System.out.println("KEY PRESSED ");
+            if(fifthMap.conMove((x-40)/40, (560-y)/40) && fifthMap.canMoveDirection((560-y)/40, (x-40)/40)) {
+            	x -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP) && y < state_y + 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(fifthMap.conMove((x)/40, (520-y)/40) && fifthMap.canMoveDirection((520-y)/40, (x)/40)) {
+            	y += 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.DOWN) && y > state_y - 40 ) {
+            System.out.println("KEY PRESSED ");
+            if(fifthMap.conMove((x)/40, (600-y)/40) && fifthMap.canMoveDirection((600-y)/40, (x)/40)) {
+            	y -= 40;
+            	foot.play(0.75f);
+            }
+        } else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){  
+        	fifthMap.changeOldState();
+        	state_x = x;
+        	state_y = y;
+        	touch = false;
+        }
+    }
+    
+    
     @Override
     public void render(float delta) {
     	state_c = x/40;
@@ -225,11 +263,14 @@ public class GameScreen extends ScreenAdapter{
 			mapThird();
 		} else if(map == 3) {
 			mapFourth();
+		} else if(map == 4) {
+			mapFifth();
 		} 
         batch.begin();
         batch.draw(HeroImg, x, y);
         font.draw(batch, "LIFE : " + hero.life, 25, 140 );
         font.draw(batch, "SHIELD : " + hero.shield, 125, 140 );
+        font.draw(batch, "MAP : " + (map+1) , 250, 140 );
         batch.end();
        
         System.out.println(firstMap.stateC + "   " + firstMap.stateR);     
@@ -361,8 +402,10 @@ public class GameScreen extends ScreenAdapter{
 		} if (fourthMap.checkOut(state_x/40, (560-state_y)/40)) {
 			map++;
 			createBomb = false;
-			state_x = 200;
-			state_y = 440;
+			state_x = 120;
+			state_y = 520;
+			x = 80;
+			y = 520;
 		} if(fourthMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
 			touchBomb();
 			System.out.println("BOMBBB !!!");
@@ -379,4 +422,33 @@ public class GameScreen extends ScreenAdapter{
 			updateFourth();
 		}
     }
+    public void mapFifth() {
+    	fifthMap.stateC = state_x/40;
+        fifthMap.stateR = (560-state_y)/40;
+        fifthMapRenderer.render();
+		System.out.println(x + " " + y + " " + state_x + " " + state_y);
+		if (fifthMap.checkOut(state_x/40, (560-state_y)/40)) {
+			map++;
+			createBomb = false;
+			state_x = 160;
+			state_y = 480;
+			x = 120;
+			y = 480;
+		} if(fifthMap.touchBomb(state_x/40, (560-state_y)/40) && touch == false) {
+			touchBomb();
+			System.out.println("BOMBBB !!!");
+		} if(fifthMap.touchLife(state_x/40, (560-state_y)/40) && touch == false) {
+			touchLife();
+		} if(fifthMap.touchShield(state_x/40, (560-state_y)/40) && touch == false) {
+			touchShield();
+		} if(hero.life == 0) {
+			batch.begin();
+	        batch.draw(gameOverImage, 100, 270);
+	        batch.end();
+	        gameOver = true;
+		} if(gameOver == false) {
+			updateFifth();
+		}
+    }
 }
+

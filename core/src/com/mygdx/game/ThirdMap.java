@@ -14,12 +14,12 @@ public class ThirdMap {
         MAP = new StringBuilder[11];
         MAP[0] = new StringBuilder("###############");
         MAP[1] = new StringBuilder("###############");
-        MAP[2] = new StringBuilder("###S..u....####");
+        MAP[2] = new StringBuilder("###S..u...b####");
         MAP[3] = new StringBuilder("####.......####");
         MAP[4] = new StringBuilder("####...l...####");
-        MAP[5] = new StringBuilder("####.......####");
+        MAP[5] = new StringBuilder("####......b####");
         MAP[6] = new StringBuilder("####l....u.####");
-        MAP[7] = new StringBuilder("####.......####");
+        MAP[7] = new StringBuilder("####.b.....####");
         MAP[8] = new StringBuilder("####...l...O###");
         MAP[9] = new StringBuilder("###############");
         MAP[10] = new StringBuilder("###############");

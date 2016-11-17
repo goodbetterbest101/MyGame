@@ -2,73 +2,73 @@ package com.mygdx.game;
 
 import java.util.Random;
 
-public class FourthMap {
+public class FifthMap {
 	private StringBuilder MAP[]; 
 	private int height;
     private int width;
     int stateC = 0;
     int stateR = 0;
     int positionBomb;
-    public FourthMap() {
+    public FifthMap() {
         
         MAP = new StringBuilder[11];
         MAP[0] = new StringBuilder("###############");
-        MAP[1] = new StringBuilder("###############");
-        MAP[2] = new StringBuilder("###S..u...u.###");
-        MAP[3] = new StringBuilder("####........###");
-        MAP[4] = new StringBuilder("####...l...b###");
-        MAP[5] = new StringBuilder("####...b....###");
-        MAP[6] = new StringBuilder("####l....u..###");
-        MAP[7] = new StringBuilder("####........###");
-        MAP[8] = new StringBuilder("####...l....###");
-        MAP[9] = new StringBuilder("####b...b...O##");
+        MAP[1] = new StringBuilder("##S.u.b....b###");
+        MAP[2] = new StringBuilder("###..b.b....###");
+        MAP[3] = new StringBuilder("###........b###");
+        MAP[4] = new StringBuilder("###.l..b..ub###");
+        MAP[5] = new StringBuilder("###....b....###");
+        MAP[6] = new StringBuilder("###.b....u.b###");
+        MAP[7] = new StringBuilder("###....b....###");
+        MAP[8] = new StringBuilder("###....l..ub###");
+        MAP[9] = new StringBuilder("###.b...b...O##");
         MAP[10] = new StringBuilder("###############");
         height = MAP.length;
         width = MAP[0].length();
     }
     
-    public void randomBomb() {
-    	Random randomBomb = new Random();
-    	for (int i = 0; i < 6; i++){
-    		if(i == 0) {
-    			positionBomb = randomBomb.nextInt(8)+2;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[3].setCharAt(positionBomb,'b');
-    		} else if(i == 1) {
-    			positionBomb = randomBomb.nextInt(8)+2;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[4].setCharAt(positionBomb,'b');
-    		} else if(i == 2) {
-    			positionBomb = randomBomb.nextInt(8)+2;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[5].setCharAt(positionBomb,'b');
-    		} else if(i == 3) {
-    			positionBomb = randomBomb.nextInt(8)+2;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[6].setCharAt(positionBomb,'b');
-    		} else if(i == 4) {
-    			positionBomb = randomBomb.nextInt(7)+1;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[7].setCharAt(positionBomb,'b');
-    		} else if(i == 5) {
-    			positionBomb = randomBomb.nextInt(9)+1;
-    			if(positionBomb < 6) {
-    				positionBomb += 4;
-    			}
-    			MAP[7].setCharAt(positionBomb,'b');
-    		}
-    	}
-    }
+//    public void randomBomb() {
+//    	Random randomBomb = new Random();
+//    	for (int i = 0; i < 6; i++){
+//    		if(i == 0) {
+//    			positionBomb = randomBomb.nextInt(8)+2;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[3].setCharAt(positionBomb,'b');
+//    		} else if(i == 1) {
+//    			positionBomb = randomBomb.nextInt(8)+2;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[4].setCharAt(positionBomb,'b');
+//    		} else if(i == 2) {
+//    			positionBomb = randomBomb.nextInt(8)+2;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[5].setCharAt(positionBomb,'b');
+//    		} else if(i == 3) {
+//    			positionBomb = randomBomb.nextInt(8)+2;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[6].setCharAt(positionBomb,'b');
+//    		} else if(i == 4) {
+//    			positionBomb = randomBomb.nextInt(7)+1;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[7].setCharAt(positionBomb,'b');
+//    		} else if(i == 5) {
+//    			positionBomb = randomBomb.nextInt(9)+1;
+//    			if(positionBomb < 6) {
+//    				positionBomb += 4;
+//    			}
+//    			MAP[7].setCharAt(positionBomb,'b');
+//    		}
+//    	}
+//    }
     
     public int getHeight() {
         return height;
